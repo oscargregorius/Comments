@@ -17,15 +17,30 @@ export const getPosts = async (req, res) => {
     });
     await res.send(posts);
   } catch (error) {
-    console.log(error);
+    res.status(400).send(error);
   }
 };
 
 export const createPost = async (req, res) => {
   try {
-    const test = await Post.create(req.body);
-    res.json({ message: "Post created" });
+    !req.body && res.status(400).send("Empty body");
+    const createdPost = await Post.create(req.body);
+    const post = await Post.findOne({
+      where: { id: createdPost.id },
+      attributes: ["id", "author", "content", "createdAt"],
+      include: [
+        {
+          model: Comment,
+          attributes: ["id", "author", "content", "createdAt"],
+        },
+      ],
+      order: [
+        ["id", "asc"],
+        [Comment, "createdAt", "desc"],
+      ],
+    });
+    res.status(200).send(post);
   } catch (error) {
-    console.log(error);
+    res.status(400).send(error);
   }
 };
