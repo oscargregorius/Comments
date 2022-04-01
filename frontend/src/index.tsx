@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { configureStore, Action } from "@reduxjs/toolkit";
+import { Action } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { ThunkAction } from "redux-thunk";
 import { PostState } from "./store/post/postSlice";
 import store from "./store";
 
-export type AppThunk = ThunkAction<void, PostState, any, Action<string>>;
+export type AppThunk = ThunkAction<void, PostState, unknown, Action<string>>;
 
 ReactDOM.render(
   <React.StrictMode>

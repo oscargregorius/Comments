@@ -8,9 +8,11 @@ export const Post = db.define(
   {
     author: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     content: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   { freezeTableName: true }
@@ -21,9 +23,19 @@ export const Comment = db.define(
   {
     author: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     content: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    postId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Post,
+        key: "id",
+      },
     },
   },
   { freezeTableName: true }

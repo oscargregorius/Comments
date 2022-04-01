@@ -1,6 +1,7 @@
 import { Comment, Post } from "../models/models.js";
 
 export const createComment = async (req, res) => {
+  !req.body && res.status(400).send("Empty body");
   try {
     const comment = req.body;
     const postFound = await Post.findOne({ where: { id: comment.postId } });
@@ -14,10 +15,6 @@ export const createComment = async (req, res) => {
           model: Comment,
           attributes: ["id", "author", "content", "createdAt"],
         },
-      ],
-      order: [
-        ["id", "asc"],
-        [Comment, "createdAt", "desc"],
       ],
     });
     res.status(200).send(post);

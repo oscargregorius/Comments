@@ -11,7 +11,7 @@ export const getPosts = async (req, res) => {
         },
       ],
       order: [
-        ["id", "asc"],
+        ["createdAt", "desc"],
         [Comment, "createdAt", "desc"],
       ],
     });
@@ -22,8 +22,8 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
+  !req.body && res.status(400).send("Empty body");
   try {
-    !req.body && res.status(400).send("Empty body");
     const createdPost = await Post.create(req.body);
     const post = await Post.findOne({
       where: { id: createdPost.id },
@@ -33,10 +33,6 @@ export const createPost = async (req, res) => {
           model: Comment,
           attributes: ["id", "author", "content", "createdAt"],
         },
-      ],
-      order: [
-        ["id", "asc"],
-        [Comment, "createdAt", "desc"],
       ],
     });
     res.status(200).send(post);
