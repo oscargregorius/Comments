@@ -18,7 +18,7 @@ function CreatePost() {
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (author.trim().length === 0 || content.trim().length === 0) {
-      dispatch(setErrorMsg("A empty name/content is not allowed"));
+      dispatch(setErrorMsg("No blank fields allowed"));
       dispatch(setIsOpen(true));
       return;
     }
