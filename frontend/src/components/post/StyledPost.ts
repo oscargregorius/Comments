@@ -1,20 +1,24 @@
 import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
+// MUI thrown a warning at camelCased values
+// and boolean attributes, therefore this solution
 interface NoCommentsProps {
-  noComments: boolean;
+  nocomments?: boolean;
+  showallcomments: number | undefined;
 }
 
 export const StyledWrapper = styled.div<NoCommentsProps>`
   background: #fcfcfc;
   width: 90%;
   min-height: 30vh;
-  justify-self: start;
+  justify-self: center;
   display: grid;
   grid-template-rows: ${(props) =>
-    props.noComments ? "auto auto 10vh auto" : `auto auto 35vh auto`};
+    props.nocomments
+      ? "auto auto auto 10vh"
+      : `auto auto auto ${props.showallcomments ? "auto" : "30vh"}`};
   box-shadow: 10px 5px 5px #ececec;
 `;
 
@@ -67,7 +71,17 @@ export const StyledCommentsWrapper = styled.div`
 `;
 
 export const StyledNoCommentText = styled.p`
-  color: white;
+  color: black;
   font-size: 1rem;
   text-align: center;
+`;
+
+export const StyledShowMoreOrLess = styled(
+  KeyboardArrowDownIcon
+)<NoCommentsProps>`
+  &&& {
+    margin: 0 auto;
+    cursor: pointer;
+    transform: ${(props) => (props.showallcomments ? "rotate(180deg)" : "")};
+  }
 `;

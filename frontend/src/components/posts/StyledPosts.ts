@@ -5,6 +5,9 @@ export const StyledWrapper = styled.main`
   width: 70vw;
   display: grid;
   grid-gap: 4rem;
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export const StyledNoPosts = styled.p`

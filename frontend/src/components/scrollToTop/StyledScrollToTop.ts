@@ -8,5 +8,9 @@ export const StyledFab = styled(Fab)`
     bottom: 2rem;
     background: #f4bb44;
     color: white;
+    @media (max-width: 768px) {
+      right: 0.5rem;
+      bottom: 0.5rem;
+    }
   }
 `;

@@ -15,7 +15,7 @@ export const getPosts = async (req, res) => {
         [Comment, "createdAt", "desc"],
       ],
     });
-    await res.send(posts);
+    await res.status(200).send(posts);
   } catch (error) {
     res.status(400).send(error);
   }

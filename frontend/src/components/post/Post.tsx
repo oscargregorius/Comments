@@ -11,15 +11,19 @@ import {
   StyledContentText,
   StyledNoCommentText,
   StyledCommentsWrapper,
+  StyledShowMoreOrLess,
 } from "./StyledPost";
 import PostComment from "../postComment/PostComment";
 import CreateComment from "../createComment/CreateComment";
+import { useState } from "react";
 
 interface Props {
   post: PostType;
 }
 
 function Post({ post }: Props) {
+  const [showAllComments, setShowAllComments] = useState(false);
+
   const handleDateAndTime = () => {
     const time = new Date(Date.parse(post.createdAt)).toLocaleTimeString();
     const date = new Date(Date.parse(post.createdAt)).toLocaleDateString();
@@ -60,11 +64,20 @@ function Post({ post }: Props) {
   );
 
   return (
-    <StyledWrapper noComments={post.comments.length ? false : true}>
+    <StyledWrapper
+      showallcomments={showAllComments ? 1 : undefined}
+      nocomments={post.comments.length ? false : true}
+    >
       {renderHeaderSection()}
       {renderContentSection()}
-      {renderCommentsSection()}
       <CreateComment postId={post.id} />
+      {renderCommentsSection()}
+      {post.comments.length > 3 && (
+        <StyledShowMoreOrLess
+          showallcomments={showAllComments ? 1 : undefined}
+          onClick={() => setShowAllComments(!showAllComments)}
+        />
+      )}
     </StyledWrapper>
   );
 }

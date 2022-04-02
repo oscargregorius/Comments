@@ -1,6 +1,7 @@
 import Header from "./components/header/Header";
 import Posts from "./components/posts/Posts";
 import CreatePost from "./components/createPost/CreatePost";
+import ErrorHandler from "./components/errorHandler/ErrorHandler";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <CreatePost />
       <Posts />
+      <ErrorHandler />
     </div>
   );
 }

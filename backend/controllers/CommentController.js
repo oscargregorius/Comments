@@ -16,6 +16,7 @@ export const createComment = async (req, res) => {
           attributes: ["id", "author", "content", "createdAt"],
         },
       ],
+      order: [[Comment, "createdAt", "desc"]],
     });
     res.status(200).send(post);
   } catch (error) {

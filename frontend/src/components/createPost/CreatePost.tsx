@@ -8,6 +8,7 @@ import {
   StyledButton,
 } from "./StyledCreatePost";
 import { createPost } from "../../store/post/actions";
+import { setIsOpen, setErrorMsg } from "../../store/errorHandler/errorSlice";
 
 function CreatePost() {
   const dispatch = useDispatch();
@@ -16,6 +17,11 @@ function CreatePost() {
 
   const handleCreatePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (author.trim().length === 0 || content.trim().length === 0) {
+      dispatch(setErrorMsg("A empty name/content is not allowed"));
+      dispatch(setIsOpen(true));
+      return;
+    }
     const post = {
       author,
       content,
@@ -27,7 +33,10 @@ function CreatePost() {
 
   return (
     <StyledWrapper>
-      <StyledForm onSubmit={(e) => handleCreatePost(e)}>
+      <StyledForm
+        dontshowbutton={!author ? 1 : undefined || !content ? 1 : undefined}
+        onSubmit={(e) => handleCreatePost(e)}
+      >
         <StyledNameInput
           variant="outlined"
           required
@@ -40,7 +49,7 @@ function CreatePost() {
           variant="outlined"
           required
           type="text"
-          label="Content"
+          label="Type your post content here.."
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
@@ -48,6 +57,7 @@ function CreatePost() {
           type="submit"
           disabled={!author || !content}
           variant="contained"
+          dontshowbutton={!author ? 1 : undefined || !content ? 1 : undefined}
         >
           Post
         </StyledButton>

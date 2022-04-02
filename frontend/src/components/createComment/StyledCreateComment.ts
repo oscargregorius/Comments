@@ -2,13 +2,23 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export const StyledCommentSection = styled.form`
+// MUI thrown a warning at camelCased values
+// and boolean attributes, therefore this solution
+interface Props {
+  dontshowbutton: number | undefined;
+}
+
+export const StyledCommentSection = styled.form<Props>`
   background: #fcfcfc;
   padding: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: grid;
-  grid-template-columns: 10rem 1fr 10rem;
+  grid-template-columns: ${(props) =>
+    props.dontshowbutton ? "10vw auto" : "10vw auto 10vw"};
   grid-gap: 0.5rem;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const StyledNameInput = styled(TextField)`
@@ -29,8 +39,9 @@ export const StyledContentInput = styled(TextField)`
   }
 `;
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)<Props>`
   &&& {
     background: #f4bb44;
+    display: ${(props) => (props.dontshowbutton ? "none" : "block")};
   }
 `;

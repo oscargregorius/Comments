@@ -7,6 +7,7 @@ import {
   StyledButton,
 } from "./StyledCreateComment";
 import { createComment } from "../../store/post/actions";
+import { setIsOpen, setErrorMsg } from "../../store/errorHandler/errorSlice";
 
 interface Props {
   postId: number;
@@ -19,6 +20,11 @@ function CreateComment({ postId }: Props) {
 
   const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (author.trim().length === 0 || content.trim().length === 0) {
+      dispatch(setErrorMsg("A empty name/content is not allowed"));
+      dispatch(setIsOpen(true));
+      return;
+    }
     const comment = {
       author,
       content,
@@ -30,11 +36,14 @@ function CreateComment({ postId }: Props) {
   };
 
   return (
-    <StyledCommentSection onSubmit={(e) => handleAddComment(e)}>
+    <StyledCommentSection
+      dontshowbutton={!author ? 1 : undefined || !content ? 1 : undefined}
+      onSubmit={(e) => handleAddComment(e)}
+    >
       <StyledNameInput
         required
         variant="outlined"
-        label="name"
+        label="Name"
         type="text"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
@@ -42,15 +51,15 @@ function CreateComment({ postId }: Props) {
       <StyledContentInput
         required
         variant="outlined"
-        label="comment"
+        label="Type your comment here.."
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
       <StyledButton
+        dontshowbutton={!author ? 1 : undefined || !content ? 1 : undefined}
         type="submit"
         variant="contained"
-        disabled={!author || !content}
       >
         Send
       </StyledButton>

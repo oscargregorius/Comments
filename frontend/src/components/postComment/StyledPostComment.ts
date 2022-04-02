@@ -8,6 +8,9 @@ export const StyledWrapper = styled.div`
   grid-template-columns: 7% 93%;
   grid-gap: 1rem;
   margin-bottom: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+  }
 `;
 
 export const StyledContentWrapper = styled.div`
@@ -21,6 +24,9 @@ export const StyledAvatar = styled(Avatar)`
   &&& {
     background: #f4bb44;
     color: black;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -33,6 +39,9 @@ export const StyledText = styled.p`
 export const StyledNameAndDateWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+  }
 `;
 
 export const StyledTextSpan = styled.span`
@@ -50,4 +59,7 @@ export const StyledDate = styled.p`
   color: white;
   justify-self: end;
   margin: 0 1rem;
+  @media (max-width: 768px) {
+    justify-self: start;
+  }
 `;
